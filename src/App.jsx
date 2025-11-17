@@ -1,7 +1,9 @@
 function App() {
+    const person = 'Ivan'
+
     return (
-        <div>
-            1111
+        <div class="my-2 mx-3">
+            {person}
         </div>
     )
 }
