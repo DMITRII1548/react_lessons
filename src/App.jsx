@@ -1,4 +1,7 @@
 function App() {
+    const sayHello = () => {
+        alert('Hello')
+    }
 
     return (
         <div className="min-h-screen bg-gray-100 p-4">
