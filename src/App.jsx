@@ -19,16 +19,20 @@ function App() {
 
         setPosts([...posts, post])
 
-        console.log(posts)
+        setPost({
+            title: '',
+            content: ''
+        })
     }
 
     return (
         <div className="min-h-screen bg-gray-100 p-4">
-            <div className="bg-white w-1/2 border border-gray-200 my-2 p-3 mx-auto">
+            <div className="bg-white w-1/2 border border-gray-200 my-4 p-3 mx-auto">
                 <div>
                     <div className="mb-4">
                         <input
                             onChange={(e) => handlePost(e)}
+                            value={post.title}
                             name="title"
                             className="border border-gray-400 p-2 w-full"
                             type="text"
@@ -37,6 +41,7 @@ function App() {
                     <div className="mb-4">
                         <textarea
                             onChange={(e) => handlePost(e)}
+                            value={post.content}
                             name="content"
                             className="border border-gray-400 p-2 w-full"
                             type="text"
@@ -49,8 +54,17 @@ function App() {
                     >Store post</button>
                 </div>
             </div>
-
-
+            <div className="flex flex-col gap-3 bg-white w-1/2 border border-gray-200 my-2 p-3 mx-auto">
+                {posts.map((p, index) => (
+                    <div key={index} className="border border-gray-200 rounded-2xl p-4">
+                        <h2 className="mb-2 text-lg font-bold">{p.title}</h2>
+                        <p>
+                            {p.content}
+                        </p>
+                    </div>
+                    )   
+                )}
+            </div>
         </div>
     )
 }
