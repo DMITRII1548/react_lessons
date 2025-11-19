@@ -6,12 +6,20 @@ function App() {
         content: '',
     })
 
+    const [posts, setPosts] = useState([])
+
     const handlePost = (e) => {
         const name = e.target.name
         const value = e.target.value
         setPost({...post, [name]: value})
+    }
 
-        console.log(post)
+    const storePost = (e) => {
+        e.preventDefault()
+
+        setPosts([...posts, post])
+
+        console.log(posts)
     }
 
     return (
@@ -36,8 +44,9 @@ function App() {
                         </textarea>
                     </div>
                     <button 
+                        onClick={(e) => storePost(e)}
                         className="inline-block text-xs text-white bg-sky-500 border border-sky-600 px-2 py-1 rounded cursor-pointer"
-                    >Change name</button>
+                    >Store post</button>
                 </div>
             </div>
 
