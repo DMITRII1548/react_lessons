@@ -7,6 +7,7 @@ function App() {
     })
 
     const [posts, setPosts] = useState([])
+    const [errors, setErrors] = useState([])
 
     const handlePost = (e) => {
         const name = e.target.name
@@ -14,8 +15,31 @@ function App() {
         setPost({...post, [name]: value})
     }
 
+    const validatePost = () => {
+        const newErrors = []
+        setErrors(newErrors)
+
+        if (post.title === '') {
+            newErrors.push({message: 'The title field is required'})
+        }
+
+        if (post.content === '') {
+            newErrors.push({message: 'The content field is required'})
+        }
+
+        if (newErrors.length > 0) {
+            setErrors(newErrors)
+        }
+
+        return newErrors
+    }
+
     const storePost = (e) => {
         e.preventDefault()
+
+        if (validatePost().length > 0) {
+            return
+        }
 
         setPosts([...posts, post])
 
@@ -48,6 +72,15 @@ function App() {
                             placeholder="Content">
                         </textarea>
                     </div>
+
+                    {errors.length > 0 && 
+                        <div className="mb-4">
+                            {errors.map((error, index) => (
+                                <p key={index} className="text-red-500">{error.message}</p>
+                            ))}
+                        </div>
+                    }
+
                     <button 
                         onClick={(e) => storePost(e)}
                         className="inline-block text-xs text-white bg-sky-500 border border-sky-600 px-2 py-1 rounded cursor-pointer"
