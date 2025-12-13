@@ -88,8 +88,12 @@ function App() {
                 return post
             })
         )
-        
+
         setIsModal(false)
+    }
+
+    const deletePost = (post) => {
+        setPosts(posts.filter(postItem => post !== postItem))
     }
 
     return (
@@ -175,12 +179,18 @@ function App() {
                         <p>
                             {p.content}
                         </p>
-                        <div className="mt-3">
+                        <div className="mt-3 flex gap-3">
                             <span 
                                 onClick={() => editPost(p)}
                                 className="inline-block text-xs text-white bg-sky-500 border border-sky-600 px-2 py-1 rounded cursor-pointer"
                                 >
                             Edit</span>
+
+                            <span 
+                                onClick={() => deletePost(p)}
+                                className="inline-block text-xs text-white bg-red-500 border border-red-600 px-2 py-1 rounded cursor-pointer"
+                                >
+                            Delete</span>
                         </div>
                     </div>
                     )   
