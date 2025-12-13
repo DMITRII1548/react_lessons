@@ -8,7 +8,7 @@ function App() {
 
     const [posts, setPosts] = useState([])
     const [errors, setErrors] = useState([])
-    const [isModal, setIsModel] = useState(false)
+    const [isModal, setIsModal] = useState(false)
 
     const handlePost = (e) => {
         const name = e.target.name
@@ -50,11 +50,21 @@ function App() {
         })
     }
 
+    const editPost = (post) => {
+        setIsModal(true)
+    }
+
     return (
         <div className="min-h-screen bg-gray-100 p-4">
             { isModal && 
-                <div className="modal-shadow">
-                    <div className="bg-white w-1/2 border border-gray-200 my-4 p-3 mx-auto rounded">
+                <div 
+                    onClick={() => setIsModal(false)}
+                    className="modal-shadow"
+                >
+                    <div 
+                        onClick={(e) => e.stopPropagation()}
+                        className="bg-white w-1/2 border border-gray-200 my-4 p-3 mx-auto rounded"
+                    >
                         <div>
                             <div className="mb-4">
                                 <input
@@ -122,6 +132,13 @@ function App() {
                         <p>
                             {p.content}
                         </p>
+                        <div className="mt-3">
+                            <span 
+                                onClick={() => editPost(p)}
+                                className="inline-block text-xs text-white bg-sky-500 border border-sky-600 px-2 py-1 rounded cursor-pointer"
+                                >
+                            Edit</span>
+                        </div>
                     </div>
                     )   
                 )}
