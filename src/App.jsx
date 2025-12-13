@@ -8,6 +8,7 @@ function App() {
 
     const [posts, setPosts] = useState([])
     const [errors, setErrors] = useState([])
+    const [isModal, setIsModel] = useState(false)
 
     const handlePost = (e) => {
         const name = e.target.name
@@ -51,6 +52,33 @@ function App() {
 
     return (
         <div className="min-h-screen bg-gray-100 p-4">
+            { isModal && 
+                <div className="modal-shadow">
+                    <div className="bg-white w-1/2 border border-gray-200 my-4 p-3 mx-auto rounded">
+                        <div>
+                            <div className="mb-4">
+                                <input
+                                    name="title"
+                                    className="border border-gray-400 p-2 w-full"
+                                    type="text"
+                                    placeholder="Title"/>
+                            </div>
+                            <div className="mb-4">
+                                <textarea
+                                    name="content"
+                                    className="border border-gray-400 p-2 w-full"
+                                    type="text"
+                                    placeholder="Content">
+                                </textarea>
+                            </div>
+
+                            <button 
+                                className="inline-block text-xs text-white bg-sky-500 border border-sky-600 px-2 py-1 rounded cursor-pointer"
+                            >Update post</button>
+                        </div>
+                    </div>
+                </div>
+            }
             <div className="bg-white w-1/2 border border-gray-200 my-4 p-3 mx-auto">
                 <div>
                     <div className="mb-4">
