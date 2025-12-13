@@ -6,6 +6,12 @@ function App() {
         content: '',
     })
 
+    const [editingPost, setEditingPost] = useState({
+        index: null,
+        title: '',
+        content: '',
+    })
+
     const [posts, setPosts] = useState([])
     const [errors, setErrors] = useState([])
     const [isModal, setIsModal] = useState(false)
@@ -14,6 +20,13 @@ function App() {
         const name = e.target.name
         const value = e.target.value
         setPost({...post, [name]: value})
+    }
+
+    const handleEditingPost = (e) => {
+        const name = e.target.name
+        const value = e.target.value
+
+        setEditingPost({...editingPost, [name]: value})
     }
 
     const validatePost = () => {
@@ -51,7 +64,32 @@ function App() {
     }
 
     const editPost = (post) => {
+        setEditingPost({
+            index: posts.indexOf(post),
+            title: post.title,
+            content: post.content
+        })
+
         setIsModal(true)
+    }
+
+    const updatePost = (e) => {        
+        e.preventDefault()
+
+        setPosts(
+            posts.map((post, index) => {
+                if (index === editingPost.index) {
+                    return {
+                        title: editingPost.title,
+                        content: editingPost.content
+                    }
+                }
+
+                return post
+            })
+        )
+        
+        setIsModal(false)
     }
 
     return (
@@ -68,6 +106,8 @@ function App() {
                         <div>
                             <div className="mb-4">
                                 <input
+                                    onChange={(e) => handleEditingPost(e)}
+                                    value={editingPost.title}
                                     name="title"
                                     className="border border-gray-400 p-2 w-full"
                                     type="text"
@@ -75,6 +115,8 @@ function App() {
                             </div>
                             <div className="mb-4">
                                 <textarea
+                                    onChange={(e) => handleEditingPost(e)}
+                                    value={editingPost.content}
                                     name="content"
                                     className="border border-gray-400 p-2 w-full"
                                     type="text"
@@ -83,6 +125,7 @@ function App() {
                             </div>
 
                             <button 
+                                onClick={(e) => updatePost(e)}
                                 className="inline-block text-xs text-white bg-sky-500 border border-sky-600 px-2 py-1 rounded cursor-pointer"
                             >Update post</button>
                         </div>
