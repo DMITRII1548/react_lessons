@@ -1,4 +1,5 @@
 import { useState } from "react"
+import PostItem from "./components/post/PostItem"
 
 function App() {
     const [post, setPost] = useState({
@@ -173,26 +174,14 @@ function App() {
                 </div>
             </div>
             <div className="flex flex-col gap-3 bg-white w-1/2 border border-gray-200 my-2 p-3 mx-auto">
-                {posts.map((p, index) => (
-                    <div key={index} className="border border-gray-200 rounded-2xl p-4">
-                        <h2 className="mb-2 text-lg font-bold">{p.title}</h2>
-                        <p>
-                            {p.content}
-                        </p>
-                        <div className="mt-3 flex gap-3">
-                            <span 
-                                onClick={() => editPost(p)}
-                                className="inline-block text-xs text-white bg-sky-500 border border-sky-600 px-2 py-1 rounded cursor-pointer"
-                                >
-                            Edit</span>
-
-                            <span 
-                                onClick={() => deletePost(p)}
-                                className="inline-block text-xs text-white bg-red-500 border border-red-600 px-2 py-1 rounded cursor-pointer"
-                                >
-                            Delete</span>
-                        </div>
-                    </div>
+                {posts.map(
+                    (p, index) => (
+                        <PostItem 
+                            key={index}
+                            post={p}
+                            deletePost={() => deletePost(p)}
+                            editPost={() => editPost(p)}
+                        />
                     )   
                 )}
             </div>
