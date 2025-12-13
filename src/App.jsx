@@ -1,5 +1,6 @@
 import { useState } from "react"
 import PostItem from "./components/post/PostItem"
+import PostContext from './context/PostContext'
 
 function App() {
     const [post, setPost] = useState({
@@ -174,16 +175,17 @@ function App() {
                 </div>
             </div>
             <div className="flex flex-col gap-3 bg-white w-1/2 border border-gray-200 my-2 p-3 mx-auto">
-                {posts.map(
-                    (p, index) => (
-                        <PostItem 
-                            key={index}
-                            post={p}
-                            deletePost={() => deletePost(p)}
-                            editPost={() => editPost(p)}
-                        />
-                    )   
-                )}
+                <PostContext value={{ deletePost }}>
+                    {posts.map(
+                        (p, index) => (
+                            <PostItem 
+                                key={index}
+                                post={p}
+                                editPost={() => editPost(p)}
+                            />
+                        )   
+                    )}
+                </PostContext>
             </div>
         </div>
     )
