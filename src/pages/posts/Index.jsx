@@ -1,5 +1,6 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
+import { Link } from "react-router-dom"
 
 function Index() {
     const [posts, setPosts] = useState([])
@@ -22,6 +23,7 @@ function Index() {
                         <p>
                             {post.content}
                         </p>
+                        <Link to={`/posts/${post.id}`} className="text-sky-500">View...</Link>
                     </div>
                 )
             })}

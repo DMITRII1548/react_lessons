@@ -1,6 +1,7 @@
 import { Link, Route, BrowserRouter as Router, Routes } from "react-router-dom"
-import PostIndex from './pages/posts/Index'
 import MainIndex from './pages/main/Index'
+import PostIndex from './pages/posts/Index'
+import PostShow from './pages/posts/Show'
 
 function App() {
     return (
@@ -13,8 +14,9 @@ function App() {
                 
                 <div className="mb-2 mx-3 my-2">
                     <Routes>
-                        <Route path={"posts"} element={<PostIndex />}></Route>
-                        <Route path={""} element={<MainIndex />}></Route>
+                        <Route path={"/posts"} element={<PostIndex />}></Route>
+                        <Route path={"/"} element={<MainIndex />}></Route>
+                        <Route path={"/posts/:id"} element={<PostShow />}></Route>
                     </Routes>
                 </div>
             </Router>
