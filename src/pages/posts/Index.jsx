@@ -14,6 +14,13 @@ function Index() {
         getPosts()
     }, [])
 
+    
+    const deletePost = async (id) => {
+        const res = await axios.delete(`http://localhost:3000/posts/${id}`)
+
+        setPosts(posts.filter(p => p.id !== id))
+    }
+
     return (
         <div>
             {posts.map(post => {
@@ -28,6 +35,12 @@ function Index() {
                         </div>
                         <div>
                             <Link to={`/posts/${post.id}/edit`} className="text-sky-500">Edit</Link>
+                        </div>
+                        <div>
+                            <button
+                                onClick={() => deletePost(post.id)}
+                                className="text-red-600 cursor-pointer"
+                            >Delete</button>
                         </div>
                     </div>
                 )
