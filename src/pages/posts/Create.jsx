@@ -1,55 +1,22 @@
-import axios from "axios"
-import { useState } from "react"
+import { useEffect } from "react"
+import { usePostStore } from "../../store/postStore"
 
 function Create() {
-    const [post, setPost] = useState({
-        title: '',
-        content: ''
-    })
+    const {post, setPost, errors, setErrors, handlePost, storePost} = usePostStore()
 
-    const [errors, setErrors] = useState({
-        title: '',
-        content: ''
-    })
-
-    const validatePost = () => {
-        const newErrors = {
-            title: '',
-            content: ''
-        }
-
-        if (post.title === '') {
-            newErrors.title = 'The title field is required'
-        }
-
-        if (post.content === '') {
-            newErrors.content = 'The content field is required'
-        }
-
-        setErrors(newErrors)
-
-        return newErrors.title || newErrors.content
-    }
-
-    const storePost = async (e) => {
-        e.preventDefault()
-        
-        if (validatePost()) return
-
-        const res = await axios.post('http://localhost:3000/posts', post)
-        
+    useEffect(() => {
         setPost({
             title: '',
-            content: ''
+            content: '',
         })
-    }
+    }, [])
 
-    const handlePost = (e) => {
-        const name = e.target.name
-        const value = e.target.value
-
-        setPost({...post, [name]: value})
-    }
+    useEffect(() => {
+        setErrors({
+            title: '',
+            content: '',
+        })
+    }, [])
 
     return (
         <div>

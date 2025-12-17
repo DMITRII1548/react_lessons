@@ -1,62 +1,21 @@
-import axios from "axios"
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import { useParams } from "react-router-dom"
+import { usePostStore } from "../../store/postStore"
 
 function Edit() {
     const {id} = useParams()
 
-    const [post, setPost] = useState({
-        id: null,
-        title: '',
-        content: '',
-    })
-
-    const [errors, setErrors] = useState({
-        title: '',
-        content: ''
-    })
-
-    const getPost = async () => {
-        const res = await axios.get(`http://localhost:3000/posts/${id}`)
-
-        setPost(res.data)
-    }
-
-    
-    const handlePost = (e) => {
-        const name = e.target.name
-        const value = e.target.value
-
-        setPost({...post, [name]: value})
-    }
-
-    const validatePost = () => {
-        const newErrors = {
-            title: '',
-            content: ''
-        }
-
-        if (post.title === '') {
-            newErrors.title = 'The title field is required'
-        }
-
-        if (post.content === '') {
-            newErrors.content = 'The content field is required'
-        }
-
-        setErrors(newErrors)
-
-        return newErrors.title || newErrors.content
-    }
-
-    const updatePost = async () => {
-        if (validatePost()) return
-
-        const res = await axios.patch(`http://localhost:3000/posts/${id}`, post)
-    }
+    const {post, getPost, updatePost, handlePost, errors, setErrors} = usePostStore()
 
     useEffect(() => {
-        getPost()
+        getPost(id)
+    }, [])
+    
+    useEffect(() => {
+        setErrors({
+            title: '',
+            content: '',
+        })
     }, [])
 
     return (
@@ -88,7 +47,7 @@ function Edit() {
             </div> 
             <div className="mb-4">
                 <button 
-                    onClick={(e) => updatePost(e)}
+                    onClick={() => updatePost(id)}
                     className="inline-block py-2 px-3 bg-sky-500 border border-sky-600 text-white rounded-xl cursor-pointer"
                 >
                     Save

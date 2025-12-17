@@ -1,30 +1,14 @@
-import axios from "axios"
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import { generatePath, Link } from "react-router-dom"
 import {ROUTES} from './../../routes/routes'
+import { usePostStore } from "../../store/postStore"
 
 function Index() {
-    const [posts, setPosts] = useState([])
-
-    const getPosts = async () => {
-        const res = await axios.get('http://localhost:3000/posts')
-        setPosts(res.data)
-    }
+    const {getPosts, posts, deletePost} = usePostStore()
 
     useEffect(() => {
         getPosts()
     }, [])
-
-    
-    const deletePost = async (id) => {
-        try {
-            const res = await axios.delete(`http://localhost:3000/posts/${id}`)
-
-            setPosts(posts.filter(p => p.id !== id))
-        } catch (e) {
-            console.log(e)
-        }
-    }
 
     return (
         <div>
