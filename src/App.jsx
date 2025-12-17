@@ -3,6 +3,7 @@ import MainIndex from './pages/main/Index'
 import PostIndex from './pages/posts/Index'
 import PostShow from './pages/posts/Show'
 import PostCreate from './pages/posts/Create'
+import PostEdit from './pages/posts/Edit'
 
 function App() {
     return (
@@ -20,6 +21,7 @@ function App() {
                         <Route path={"/"} element={<MainIndex />}></Route>
                         <Route path={"/posts/create"} element={<PostCreate />}></Route>
                         <Route path={"/posts/:id"} element={<PostShow />}></Route>
+                        <Route path={"/posts/:id/edit"} element={<PostEdit />}></Route>
                     </Routes>
                 </div>
             </Router>

@@ -23,7 +23,12 @@ function Index() {
                         <p>
                             {post.content}
                         </p>
-                        <Link to={`/posts/${post.id}`} className="text-sky-500">View...</Link>
+                        <div>
+                            <Link to={`/posts/${post.id}`} className="text-sky-500">View...</Link>
+                        </div>
+                        <div>
+                            <Link to={`/posts/${post.id}/edit`} className="text-sky-500">Edit</Link>
+                        </div>
                     </div>
                 )
             })}
