@@ -16,9 +16,13 @@ function Index() {
 
     
     const deletePost = async (id) => {
-        const res = await axios.delete(`http://localhost:3000/posts/${id}`)
+        try {
+            const res = await axios.delete(`http://localhost:3000/posts/${id}`)
 
-        setPosts(posts.filter(p => p.id !== id))
+            setPosts(posts.filter(p => p.id !== id))
+        } catch (e) {
+            console.log(e)
+        }
     }
 
     return (
