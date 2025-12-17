@@ -1,6 +1,7 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
-import { Link } from "react-router-dom"
+import { generatePath, Link } from "react-router-dom"
+import {ROUTES} from './../../routes/routes'
 
 function Index() {
     const [posts, setPosts] = useState([])
@@ -35,10 +36,10 @@ function Index() {
                             {post.content}
                         </p>
                         <div>
-                            <Link to={`/posts/${post.id}`} className="text-sky-500">View...</Link>
+                            <Link to={generatePath(ROUTES.POST_SHOW, {id: post.id})} className="text-sky-500">View...</Link>
                         </div>
                         <div>
-                            <Link to={`/posts/${post.id}/edit`} className="text-sky-500">Edit</Link>
+                            <Link to={generatePath(ROUTES.POST_EDIT, {id: post.id})} className="text-sky-500">Edit</Link>
                         </div>
                         <div>
                             <button
